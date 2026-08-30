@@ -30,47 +30,41 @@ The final Gold-layer datasets can be consumed by downstream **BI, analytics, rep
 
 The project follows the Medallion Architecture:
 
-```text
                          Raw Transportation Data
                                   │
-                                  ▼
-                         ┌─────────────────┐
-                         │ Databricks      │
-                         │ Volume          │
-                         └────────┬────────┘
-                                  │
-                                  ▼
-                         ┌─────────────────┐
-                         │     BRONZE      │
-                         │                 │
-                         │ city            │
-                         │ trips           │
-                         └────────┬────────┘
-                                  │
-                                  ▼
-                         ┌─────────────────┐
-                         │     SILVER      │
-                         │                 │
-                         │ city            │
-                         │ trips           │
-                         │ calendar        │
-                         │                 │
-                         │ Cleaning        │
-                         │ Validation      │
-                         │ Transformation  │
-                         └────────┬────────┘
-                                  │
-                                  ▼
-                         ┌─────────────────┐
-                         │      GOLD       │
-                         │                 │
-                         │ fact_trips      │
-                         │ City datasets   │
-                         └────────┬────────┘
-                                  │
-                                  ▼
+                         ─────────────────
+                           Databricks      
+                           Volume          
+                         ────────────────
+                                |
+                         ─────────────────
+                              BRONZE      
+                                          
+                          city            
+                          trips           
+                         ────────────────
+                                |
+                         ─────────────────
+                              SILVER      
+                                          
+                          city            
+                          trips           
+                          calendar        
+                                          
+                          Cleaning        
+                          Validation      
+                          Transformation  
+                         ────────────────
+                                |
+                         ─────────────────
+                               GOLD       
+                                          
+                          fact_trips      
+                          City datasets   
+                         ────────────────
+                                |
                          Analytics / BI / Reporting
-```
+
 
 For a detailed architecture explanation, see [`docs/architecture.md`](docs/architecture.md).
 
@@ -84,9 +78,9 @@ The Bronze layer contains the initial ingested transportation data.
 
 ```text
 transportation
-└── bronze
-    ├── city
-    └── trips
+── bronze
+    ── city
+    ── trips
 ```
 
 ### Responsibilities
@@ -108,10 +102,10 @@ The Silver layer contains cleaned, validated, and transformed datasets.
 
 ```text
 transportation
-└── silver
-    ├── city
-    ├── trips
-    └── calendar
+── silver
+    ── city
+    ── trips
+    ── calendar
 ```
 
 ### Transformations
@@ -150,13 +144,13 @@ The Gold layer contains business-ready and analytics-ready datasets.
 
 ```text
 transportation
-└── gold
-    ├── fact_trips
-    ├── trips_jaipur
-    ├── trips_kochi
-    ├── trips_lucknow
-    ├── trips_surat
-    └── trips_chandigarh
+── gold
+    ── fact_trips
+    ── trips_jaipur
+    ── trips_kochi
+    ── trips_lucknow
+    ── trips_surat
+    ── trips_chandigarh
 ```
 
 ### `fact_trips`
@@ -184,27 +178,27 @@ These datasets can be used for city-level reporting and analytical workloads.
 ```text
 Databricks Volume
        │
-       ▼
+       
     Bronze
        │
-       │ Ingestion
-       ▼
+        -Ingestion
+       
     Silver
        │
-       │ Cleaning
-       │ Validation
-       │ Transformation
-       ▼
+        - Cleaning
+        - Validation
+        - Transformation
+       
      Gold
        │
-       ├── fact_trips
-       ├── trips_jaipur
-       ├── trips_kochi
-       ├── trips_lucknow
-       ├── trips_surat
-       └── trips_chandigarh
+        ── fact_trips
+        ── trips_jaipur
+        ── trips_kochi
+        ── trips_lucknow
+        ── trips_surat
+        ── trips_chandigarh
        │
-       ▼
+       
 Analytics / BI / Reporting
 ```
 
@@ -314,25 +308,6 @@ High-level execution flow:
 ```
 
 ---
-
-## Data and Security
-
-Raw data is maintained inside the Databricks environment and is not committed to the public GitHub repository.
-
-The repository does not contain:
-
-* Passwords
-* Access tokens
-* API keys
-* Cloud credentials
-* Databricks Personal Access Tokens
-* Sensitive configuration
-* Large raw datasets
-
-Secrets and credentials should be managed using appropriate secret-management mechanisms rather than storing them in source control.
-
----
-
 ##Git Workflow
 
 The project uses Git for source control.
@@ -351,26 +326,8 @@ Feature branches are used for development and changes are merged into `main` aft
 
 The `main` branch represents the stable version of the project.
 
----
 
-##Future Improvements
-
-The project can be extended with additional production-oriented capabilities:
-
-* [ ] Databricks Declarative Automation Bundles
-* [ ] CI/CD using GitHub Actions
-* [ ] Automated unit and data-quality testing
-* [ ] Pipeline monitoring and alerting
-* [ ] Incremental data processing
-* [ ] Schema evolution
-* [ ] Error/quarantine tables
-* [ ] Centralized configuration
-* [ ] Data lineage and governance
-* [ ] Infrastructure as Code
-
----
-
-##Key Data Engineering Concepts Demonstrated
+#Key Data Engineering Concepts Demonstrated
 
 This project demonstrates practical implementation of:
 
@@ -396,9 +353,4 @@ This project demonstrates practical implementation of:
 
 Cloud Data Engineer | Python | SQL | PySpark | Azure | Databricks
 
----
-
-## Project
-
-If you find this project useful for learning Data Engineering, feel free to explore the repository and star it.
 
